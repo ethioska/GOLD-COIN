@@ -7,12 +7,27 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>🎮 Avatar Bet Game</h1>
-    <p>Your Coins: <span id="coins">5</span></p>
-    <button id="betButton">Place Bet</button>
-    <p id="result"></p>
+  <h1>⚽ Avatar Free Bet Game</h1>
+
+  <!-- User Balance Section -->
+  <div id="balance">
+    <h2>Your Coins</h2>
+    <ul>
+      <li>NC: <span id="nc">0</span></li>
+      <li>SC: <span id="sc">0</span></li>
+      <li>GC: <span id="gc">0</span></li>
+      <li>DC: <span id="dc">0</span></li>
+      <li>SKA: <span id="ska">0</span></li>
+    </ul>
   </div>
+
+  <!-- Buttons -->
+  <button onclick="placeBet()">🎮 Place Bet</button>
+  <button onclick="swapCoins()">🔄 Swap Coins</button>
+  <button onclick="openMarket()">🏪 Marketplace</button>
+  <button onclick="withdraw()">💸 Withdraw</button>
+
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
