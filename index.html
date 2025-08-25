@@ -1,13 +1,18 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Gold Coin Game</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Avatar Bet Game</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <h1>⚽ Welcome to Gold Coin Football Mini App ⚽</h1>
-  <p>Invite your friends and collect coins!</p>
-
-  <button onclick="alert('You collected 1 coin!')">Collect Coin</button>
+  <div class="container">
+    <h1>🎮 Avatar Bet Game</h1>
+    <p>Your Coins: <span id="coins">5</span></p>
+    <button id="betButton">Place Bet</button>
+    <p id="result"></p>
+  </div>
+  <script src="app.js"></script>
 </body>
 </html>
