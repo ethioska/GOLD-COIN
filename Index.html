@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gold Coin Aviator Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <header class="navbar">
+    <h1>GOLD COIN</h1>
+    <nav>
+      <button>Home</button>
+      <button>Games</button>
+      <button class="active">Aviator</button>
+      <button>Slips</button>
+      <button>More</button>
+    </nav>
+  </header>
+
+  <!-- Game Section -->
+  <main class="game-container">
+    <h2>🚀 Aviator Mini Game</h2>
+    <p>Place your bet and watch the multiplier grow!</p>
+
+    <div class="bet-panel">
+      <input type="number" id="betAmount" placeholder="Enter bet (coins)">
+      <button onclick="placeBet()">Place Bet</button>
+    </div>
+
+    <div class="result">
+      <h3 id="multiplier">Multiplier: 1.0x</h3>
+      <h3 id="status">Waiting...</h3>
+    </div>
+  </main>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
