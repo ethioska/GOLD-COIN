@@ -1,0 +1,52 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0b1c2c;
+  color: #fff;
+  text-align: center;
+}
+
+.navbar {
+  background: #112d4e;
+  padding: 10px;
+}
+.navbar h1 {
+  margin: 5px;
+}
+.navbar nav {
+  display: flex;
+  justify-content: space-around;
+}
+.navbar button {
+  background: #1f4068;
+  border: none;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+}
+.navbar button.active {
+  background: #e43f5a;
+}
+
+.game-container {
+  margin-top: 30px;
+}
+.bet-panel {
+  margin: 20px;
+}
+.bet-panel input {
+  padding: 10px;
+  font-size: 16px;
+  width: 150px;
+}
+.bet-panel button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #e43f5a;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+.result h3 {
+  margin: 10px;
+}
