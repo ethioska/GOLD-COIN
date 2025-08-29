@@ -1,30 +1,42 @@
-let multiplier = 1.0;
-let gameInterval;
-let betPlaced = false;
-
 function placeBet() {
-  const betAmount = document.getElementById("betAmount").value;
-  if (!betAmount || betAmount <= 0) {
-    alert("Enter a valid bet amount!");
+  let bet = document.getElementById("betAmount").value;
+  if (!bet || bet <= 0) {
+    alert("Enter a valid bet!");
     return;
   }
+  document.getElementById("status").innerText = "Game Started!";
+  
+  let multiplier = 1.0;
+  let interval = setInterval(() => {
+    multiplier += 0.1;
+    document.getElementById("multiplier").innerText = `Multiplier: ${multiplier.toFixed(1)}x`;
 
-  document.getElementById("status").innerText = "Bet Placed! 🚀";
-  multiplier = 1.0;
-  clearInterval(gameInterval);
-
-  betPlaced = true;
-  gameInterval = setInterval(runGame, 1000);
+    if (multiplier >= Math.random() * 10) {
+      clearInterval(interval);
+      document.getElementById("status").innerText = "💥 Plane crashed!";
+    }
+  }, 500);
 }
 
-function runGame() {
-  multiplier += (Math.random() * 1.5).toFixed(2); // random growth
-  document.getElementById("multiplier").innerText = `Multiplier: ${multiplier.toFixed(2)}x`;
-
-  // Random crash
-  if (Math.random() < 0.2) { 
-    clearInterval(gameInterval);
-    document.getElementById("status").innerText = "💥 Crashed!";
-    betPlaced = false;
+// Show sections
+function showSection(section) {
+  if (section === "referral") {
+    document.getElementById("referralModal").style.display = "flex";
+  } else if (section === "wallet") {
+    document.getElementById("walletModal").style.display = "flex";
   }
+}
+
+// Close modal
+function closeModal(id) {
+  document.getElementById(id).style.display = "none";
+}
+
+// Copy referral link
+function copyReferral() {
+  let refLink = document.getElementById("refLink");
+  refLink.select();
+  refLink.setSelectionRange(0, 99999);
+  document.execCommand("copy");
+  alert("Referral link copied!");
 }
