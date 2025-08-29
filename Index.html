@@ -26,10 +26,34 @@
 
   <!-- Bottom Navigation -->
   <footer class="bottom-nav">
-    <button class="active">🏠 Home</button>
-    <button>👥 Referral</button>
-    <button>💰 Wallet</button>
+    <button class="active" onclick="showSection('home')">🏠 Home</button>
+    <button onclick="showSection('referral')">👥 Referral</button>
+    <button onclick="showSection('wallet')">💰 Wallet</button>
   </footer>
+
+  <!-- Referral Modal -->
+  <div id="referralModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('referralModal')">&times;</span>
+      <h2>Referral Info</h2>
+      <p><strong>Referred by:</strong> <span id="refBy">JohnDoe123</span></p>
+      <p><strong>Your Referral Link:</strong></p>
+      <input type="text" id="refLink" value="https://mygame.com/ref/USER123" readonly>
+      <button onclick="copyReferral()">Copy Link</button>
+    </div>
+  </div>
+
+  <!-- Wallet Modal -->
+  <div id="walletModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('walletModal')">&times;</span>
+      <h2>My Wallet</h2>
+      <p><strong>Username:</strong> player1</p>
+      <p><strong>Phone:</strong> +251912345678</p>
+      <p><strong>Member ID:</strong> GC-2025-001</p>
+      <p><strong>Balance:</strong> 100 Coins</p>
+    </div>
+  </div>
 
   <script src="main.js" defer></script>
 </body>
