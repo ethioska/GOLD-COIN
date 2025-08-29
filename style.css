@@ -53,3 +53,38 @@ body {
   color: #e43f5a;
   font-weight: bold;
 }
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  background: #1c2c4c;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 400px;
+  text-align: left;
+  color: #fff;
+}
+.close {
+  float: right;
+  font-size: 20px;
+  cursor: pointer;
+  color: #fff;
+}
+.modal-content button {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: #e43f5a;
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+}
