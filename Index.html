@@ -1,60 +1,117 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gold Coin Aviator Game</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Gold Coin — Avatar Bet</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
-  <!-- Game Section -->
-  <main class="game-container">
-    <h2>🚀 Aviator Mini Game</h2>
-    <p>Place your bet and watch the multiplier grow!</p>
-
-    <div class="bet-panel">
-      <input type="number" id="betAmount" placeholder="Enter bet (coins)">
-      <button onclick="placeBet()">Place Bet</button>
+  <header class="topbar">
+    <div class="brand">GOLD COIN</div>
+    <div class="header-right">
+      <div class="balance">Balance: <span id="balance">0.00</span> NC</div>
+      <button id="claimBtn" class="small ghost">🎁 Claim</button>
     </div>
+  </header>
 
-    <div class="result">
-      <h3 id="multiplier">Multiplier: 1.0x</h3>
-      <h3 id="status">Waiting...</h3>
-    </div>
+  <main class="container">
+    <!-- HOME / GAME -->
+    <section id="home" class="page active">
+      <h2>🚀 Aviator — Avatar Bet</h2>
+
+      <div class="card">
+        <canvas id="gameCanvas" width="720" height="300" aria-label="game canvas"></canvas>
+
+        <div class="controls">
+          <div class="left">
+            <div class="bet-row">
+              <label>Bet (NC)</label>
+              <input id="betInput" type="number" step="0.01" min="0.01" value="0.10">
+              <div class="chips">
+                <button class="chip" data-add="0.10">+0.10</button>
+                <button class="chip" data-add="0.50">+0.50</button>
+                <button class="chip" data-add="1">+1.00</button>
+              </div>
+            </div>
+
+            <div class="autocash">
+              <label>Auto cash at</label>
+              <input id="autoCash" type="number" step="0.01" min="1.01" value="1.50">
+            </div>
+          </div>
+
+          <div class="right">
+            <div class="multibox">
+              <div id="multiplier" class="mult">1.00x</div>
+              <div id="status" class="status">Ready — place a bet</div>
+            </div>
+
+            <div class="buttons">
+              <button id="betBtn" class="btn primary">BET</button>
+              <button id="cashBtn" class="btn warn" disabled>CASH OUT</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="result" class="result"></div>
+        <ul id="history" class="history"></ul>
+      </div>
+    </section>
+
+    <!-- REFERRAL -->
+    <section id="referral" class="page">
+      <h2>👥 Referral</h2>
+      <div class="card">
+        <p><strong>Referred by:</strong> <span id="referredBy">—</span></p>
+
+        <p><strong>Your referral code:</strong></p>
+        <div class="row">
+          <input id="myCode" readonly>
+          <button id="copyMyCode" class="small">Copy</button>
+        </div>
+
+        <p><strong>Your referral link</strong></p>
+        <div class="row">
+          <input id="myLink" readonly>
+          <button id="copyMyLink" class="small">Copy Link</button>
+        </div>
+
+        <small class="hint">Share your link: visitors who open the page with `?ref=YOURCODE` will see "Referred by".</small>
+      </div>
+    </section>
+
+    <!-- WALLET / PROFILE -->
+    <section id="wallet" class="page">
+      <h2>💰 Wallet / Profile</h2>
+      <div class="card profile">
+        <label>Username</label>
+        <input id="username" placeholder="Your name (e.g. @Seid)" />
+        <label>Phone</label>
+        <input id="phone" placeholder="+2519XXXXXXXX" />
+        <label>Member ID</label>
+        <input id="memberId" placeholder="auto-generated or yours" />
+
+        <div class="row">
+          <button id="saveProfile" class="btn primary">Save Profile</button>
+          <button id="resetProfile" class="small ghost">Reset</button>
+        </div>
+
+        <div class="profile-info">
+          <p><strong>Registered:</strong> <span id="registeredAt">—</span></p>
+          <p><strong>Current balance:</strong> <span id="balProfile">0.00</span> NC</p>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <!-- Bottom Navigation -->
-  <footer class="bottom-nav">
-    <button class="active" onclick="showSection('home')">🏠 Home</button>
-    <button onclick="showSection('referral')">👥 Referral</button>
-    <button onclick="showSection('wallet')">💰 Wallet</button>
-  </footer>
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-show="home">🏠 Home</button>
+    <button class="nav-btn" data-show="referral">👥 Referral</button>
+    <button class="nav-btn" data-show="wallet">💼 Wallet</button>
+  </nav>
 
-  <!-- Referral Modal -->
-  <div id="referralModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal('referralModal')">&times;</span>
-      <h2>Referral Info</h2>
-      <p><strong>Referred by:</strong> <span id="refBy">JohnDoe123</span></p>
-      <p><strong>Your Referral Link:</strong></p>
-      <input type="text" id="refLink" value="https://mygame.com/ref/USER123" readonly>
-      <button onclick="copyReferral()">Copy Link</button>
-    </div>
-  </div>
-
-  <!-- Wallet Modal -->
-  <div id="walletModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeModal('walletModal')">&times;</span>
-      <h2>My Wallet</h2>
-      <p><strong>Username:</strong> player1</p>
-      <p><strong>Phone:</strong> +251912345678</p>
-      <p><strong>Member ID:</strong> GC-2025-001</p>
-      <p><strong>Balance:</strong> 100 Coins</p>
-    </div>
-  </div>
-
-  <script src="main.js" defer></script>
+  <script src="main.js"></script>
 </body>
 </html>
