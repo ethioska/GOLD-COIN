@@ -4,28 +4,7 @@ body {
   background: #0b1c2c;
   color: #fff;
   text-align: center;
-}
-
-.navbar {
-  background: #112d4e;
-  padding: 10px;
-}
-.navbar h1 {
-  margin: 5px;
-}
-.navbar nav {
-  display: flex;
-  justify-content: space-around;
-}
-.navbar button {
-  background: #1f4068;
-  border: none;
-  color: white;
-  padding: 8px 15px;
-  border-radius: 5px;
-}
-.navbar button.active {
-  background: #e43f5a;
+  padding-bottom: 70px; /* space for bottom nav */
 }
 
 .game-container {
@@ -49,4 +28,28 @@ body {
 }
 .result h3 {
   margin: 10px;
+}
+
+/* Bottom Navigation */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: #112d4e;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 2px solid #1f4068;
+}
+.bottom-nav button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+}
+.bottom-nav button.active {
+  color: #e43f5a;
+  font-weight: bold;
 }
