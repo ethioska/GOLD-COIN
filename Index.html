@@ -1,117 +1,315 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Gold Coin — Avatar Bet</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold Coin Collector</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            color: white;
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        
+        header {
+            margin-bottom: 30px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #FFD700;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            margin-bottom: 10px;
+        }
+        
+        .description {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-box {
+            background: rgba(255, 215, 0, 0.2);
+            border: 2px solid #FFD700;
+            border-radius: 10px;
+            padding: 15px;
+            min-width: 150px;
+            margin: 10px;
+        }
+        
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFD700;
+        }
+        
+        .game-area {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            height: 300px;
+            overflow: hidden;
+        }
+        
+        .coin {
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle at 20px 20px, #FFD700, #DAa520);
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+            box-shadow: 0 0 15px #FFD700;
+            transition: transform 0.2s;
+        }
+        
+        .coin:hover {
+            transform: scale(1.1);
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            background: linear-gradient(to bottom, #FFD700, #DAa520);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        button:active {
+            transform: translateY(1px);
+        }
+        
+        .invite-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            width: 100%;
+        }
+        
+        .invite-link {
+            display: flex;
+            margin: 15px 0;
+        }
+        
+        input {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px 0 0 5px;
+            font-size: 1rem;
+        }
+        
+        .copy-btn {
+            border-radius: 0 5px 5px 0;
+            padding: 12px;
+        }
+        
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .stat-box {
+                min-width: 120px;
+            }
+            
+            .game-area {
+                height: 250px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header class="topbar">
-    <div class="brand">GOLD COIN</div>
-    <div class="header-right">
-      <div class="balance">Balance: <span id="balance">0.00</span> NC</div>
-      <button id="claimBtn" class="small ghost">🎁 Claim</button>
-    </div>
-  </header>
-
-  <main class="container">
-    <!-- HOME / GAME -->
-    <section id="home" class="page active">
-      <h2>🚀 Aviator — Avatar Bet</h2>
-
-      <div class="card">
-        <canvas id="gameCanvas" width="720" height="300" aria-label="game canvas"></canvas>
-
+    <div class="container">
+        <header>
+            <h1>GOLD COIN COLLECTOR</h1>
+            <p class="description">Play the game, collect coins, invite your friends and earn rewards!</p>
+        </header>
+        
+        <div class="stats">
+            <div class="stat-box">
+                <div class="stat-label">Coins</div>
+                <div class="stat-value" id="coin-count">0</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Level</div>
+                <div class="stat-value" id="level">1</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-label">Friends</div>
+                <div class="stat-value" id="friends">0</div>
+            </div>
+        </div>
+        
+        <div class="game-area" id="game-area">
+            <!-- Coins will be generated here -->
+        </div>
+        
         <div class="controls">
-          <div class="left">
-            <div class="bet-row">
-              <label>Bet (NC)</label>
-              <input id="betInput" type="number" step="0.01" min="0.01" value="0.10">
-              <div class="chips">
-                <button class="chip" data-add="0.10">+0.10</button>
-                <button class="chip" data-add="0.50">+0.50</button>
-                <button class="chip" data-add="1">+1.00</button>
-              </div>
+            <button id="collect-btn">Collect Coins</button>
+            <button id="invite-btn">Invite Friends</button>
+        </div>
+        
+        <div class="invite-section">
+            <h3>Invite friends and get bonus coins!</h3>
+            <div class="invite-link">
+                <input type="text" id="invite-link" value="https://example.com/invite?ref=12345" readonly>
+                <button class="copy-btn" id="copy-btn">Copy</button>
             </div>
-
-            <div class="autocash">
-              <label>Auto cash at</label>
-              <input id="autoCash" type="number" step="0.01" min="1.01" value="1.50">
-            </div>
-          </div>
-
-          <div class="right">
-            <div class="multibox">
-              <div id="multiplier" class="mult">1.00x</div>
-              <div id="status" class="status">Ready — place a bet</div>
-            </div>
-
-            <div class="buttons">
-              <button id="betBtn" class="btn primary">BET</button>
-              <button id="cashBtn" class="btn warn" disabled>CASH OUT</button>
-            </div>
-          </div>
         </div>
+    </div>
+    
+    <footer>
+        <p>Gold Coin Collector © 2025 - Play and earn rewards!</p>
+    </footer>
 
-        <div id="result" class="result"></div>
-        <ul id="history" class="history"></ul>
-      </div>
-    </section>
-
-    <!-- REFERRAL -->
-    <section id="referral" class="page">
-      <h2>👥 Referral</h2>
-      <div class="card">
-        <p><strong>Referred by:</strong> <span id="referredBy">—</span></p>
-
-        <p><strong>Your referral code:</strong></p>
-        <div class="row">
-          <input id="myCode" readonly>
-          <button id="copyMyCode" class="small">Copy</button>
-        </div>
-
-        <p><strong>Your referral link</strong></p>
-        <div class="row">
-          <input id="myLink" readonly>
-          <button id="copyMyLink" class="small">Copy Link</button>
-        </div>
-
-        <small class="hint">Share your link: visitors who open the page with `?ref=YOURCODE` will see "Referred by".</small>
-      </div>
-    </section>
-
-    <!-- WALLET / PROFILE -->
-    <section id="wallet" class="page">
-      <h2>💰 Wallet / Profile</h2>
-      <div class="card profile">
-        <label>Username</label>
-        <input id="username" placeholder="Your name (e.g. @Seid)" />
-        <label>Phone</label>
-        <input id="phone" placeholder="+2519XXXXXXXX" />
-        <label>Member ID</label>
-        <input id="memberId" placeholder="auto-generated or yours" />
-
-        <div class="row">
-          <button id="saveProfile" class="btn primary">Save Profile</button>
-          <button id="resetProfile" class="small ghost">Reset</button>
-        </div>
-
-        <div class="profile-info">
-          <p><strong>Registered:</strong> <span id="registeredAt">—</span></p>
-          <p><strong>Current balance:</strong> <span id="balProfile">0.00</span> NC</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- BOTTOM NAV -->
-  <nav class="bottom-nav">
-    <button class="nav-btn active" data-show="home">🏠 Home</button>
-    <button class="nav-btn" data-show="referral">👥 Referral</button>
-    <button class="nav-btn" data-show="wallet">💼 Wallet</button>
-  </nav>
-
-  <script src="main.js"></script>
+    <script>
+        // Game state
+        let coins = 0;
+        let level = 1;
+        let friends = 0;
+        
+        // DOM elements
+        const gameArea = document.getElementById('game-area');
+        const coinCountElement = document.getElementById('coin-count');
+        const levelElement = document.getElementById('level');
+        const friendsElement = document.getElementById('friends');
+        const collectBtn = document.getElementById('collect-btn');
+        const inviteBtn = document.getElementById('invite-btn');
+        const inviteLink = document.getElementById('invite-link');
+        const copyBtn = document.getElementById('copy-btn');
+        
+        // Generate coins in the game area
+        function generateCoins() {
+            gameArea.innerHTML = '';
+            
+            const coinsToGenerate = 5 + Math.floor(level / 2);
+            
+            for (let i = 0; i < coinsToGenerate; i++) {
+                const coin = document.createElement('div');
+                coin.className = 'coin';
+                
+                // Random position (within game area bounds)
+                const x = Math.random() * (gameArea.offsetWidth - 60);
+                const y = Math.random() * (gameArea.offsetHeight - 60);
+                
+                coin.style.left = `${x}px`;
+                coin.style.top = `${y}px`;
+                
+                coin.addEventListener('click', () => {
+                    collectCoin(coin);
+                });
+                
+                gameArea.appendChild(coin);
+            }
+        }
+        
+        // Collect coin function
+        function collectCoin(coinElement) {
+            coinElement.style.transition = 'all 0.5s';
+            coinElement.style.transform = 'scale(0)';
+            coinElement.style.opacity = '0';
+            
+            coins += level; // Higher levels give more coins per click
+            coinCountElement.textContent = coins;
+            
+            // Check for level up
+            if (coins >= level * 100) {
+                levelUp();
+            }
+            
+            setTimeout(() => {
+                coinElement.remove();
+            }, 500);
+        }
+        
+        // Level up function
+        function levelUp() {
+            level++;
+            levelElement.textContent = level;
+            
+            // Regenerate coins with new level
+            generateCoins();
+        }
+        
+        // Copy invite link
+        copyBtn.addEventListener('click', () => {
+            inviteLink.select();
+            document.execCommand('copy');
+            alert('Invite link copied to clipboard!');
+        });
+        
+        // Invite friends button
+        inviteBtn.addEventListener('click', () => {
+            alert('Share your invite link with friends to get bonus coins!');
+        });
+        
+        // Collect button (alternative way to collect coins)
+        collectBtn.addEventListener('click', generateCoins);
+        
+        // Initialize the game
+        generateCoins();
+        
+        // Simulate some friends and coins for demo
+        setTimeout(() => {
+            coins = 42;
+            friends = 5;
+            coinCountElement.textContent = coins;
+            friendsElement.textContent = friends;
+        }, 1000);
+    </script>
 </body>
 </html>
